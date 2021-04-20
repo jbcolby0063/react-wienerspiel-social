@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import "firebase/auth"
 
-const app = firebase.initializeApp({ // used .env.local to hide the actual auth keys
+const app = firebase.initializeApp({ // used .env.local to hide the actual auth keys (need to create .env.local file on your local)
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY, // bring the auth key from .env.local by typing "process.env."
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
