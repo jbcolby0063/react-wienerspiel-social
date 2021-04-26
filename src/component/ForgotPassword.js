@@ -1,34 +1,34 @@
 import React, { useRef, useState }from 'react'
 import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
-import { Link, useHistory } from 'react-router-dom'
-import { heartText, memberLoginText, buttonStyle, linkStyle, socialText } from '../style'
+import { Link } from 'react-router-dom'
+import { heartText, memberLoginText, buttonStyle, linkStyle, socialText, normalText } from '../style'
 import heart from '../heart-1.png'
 import circle from '../Subtract.svg'
 import logo from '../logo.png'
 
-export default function Login() {
+export default function ForgotPassword() {
     const emailRef = useRef()
-    const passwordRef = useRef()
-    const { login } = useAuth() // access directly to login function from the AuthContext.Provider value
+    const { resetPassword } = useAuth() // access directly to login function from the AuthContext.Provider value
     const [error, setError] = useState('')
+    const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const history = useHistory()
 
     async function handleSubmit(e) {
         e.preventDefault() // prevents any event action
 
         try {
+            setMessage("")
             setError('')
             setLoading(true) // make the Sign Up button disabled to prevent user from clicking it multiple times
-            await login(emailRef.current.value, passwordRef.current.value) // wait until signup is finished
-            history.push('/') // bring us to dashboard once login success
+            await resetPassword(emailRef.current.value)
+            setMessage("Check your inbox for further instructions")
         } catch { // if signup fails 
-            setError('Failed to sign in')
+            setError('Failed to reset password')
         }
 
         setLoading(false)
-    }  
+    }
 
     return (
         <Container 
@@ -55,34 +55,33 @@ export default function Login() {
                     </div>
                     <Card.Body className="mt-3">
                         <h2 className="text-center mb-4" style={ memberLoginText }>
-                            Member Login
+                            Password Reset
                         </h2>
                         {error && <Alert variant="danger">{error}</Alert>} 
+                        {message && <Alert variant="success">{message}</Alert>} 
                         <Form onSubmit={handleSubmit}>
                             <Form.Group id="email" className="mb-4">
-                                <Form.Control type="email" ref={emailRef} placeholder="Email/Username" required/>
+                                <Form.Label style={ normalText }>Email</Form.Label>
+                                <Form.Control type="email" ref={emailRef} required />
                             </Form.Group>
-                            <Form.Group id="password" className="mb-5">
-                                <Form.Control type="password" ref={passwordRef} placeholder="Password" required />
-                            </Form.Group>
-                            <Button disabled={loading} className="w-100 mb-3" type="submit" variant="danger" style={ buttonStyle }>
-                                Log In
+                            <Button disabled={loading} className="w-100 mb-3" type="submit" style={ buttonStyle }>
+                                Reset Password
                             </Button>
                         </Form>
                         <div className="w-100 text-center mt-3">
-                            <Link to="/forgot-password" style={ linkStyle }>
-                                Forgot Password?
+                            <Link to="/login" style={ linkStyle }>
+                                Login
                             </Link>
                         </div>
                     </Card.Body>
                 </Card>   
                 <div className="w-100 text-center mt-3" style={ linkStyle }>
-                    New? <Link to="/signup" style={{color: "#BB0101"}}> Sign Up</Link>
+                    Need an account? <Link to="/signup" style={{color: "#BB0101"}}>Sign Up</Link>
                 </div>
             </Col>
             </div>
             <img src={circle} alt ="Quarter Circle" style={{position: "absolute", top: 0, right: 0, zIndex: -1}} />
-         </Row>
+        </Row>
     </Container>
     )
 }

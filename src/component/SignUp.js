@@ -1,7 +1,11 @@
 import React, { useRef, useState }from 'react'
-import { Form, Button, Card, Alert } from 'react-bootstrap'
+import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import { Link, useHistory } from 'react-router-dom'
+import { heartText, memberLoginText, buttonStyle, linkStyle, socialText, normalText } from '../style'
+import heart from '../heart-1.png'
+import circle from '../Subtract.svg'
+import logo from '../logo.png'
 
 export default function SignUp() {
     const emailRef = useRef()
@@ -30,33 +34,62 @@ export default function SignUp() {
 
         setLoading(false)
     }
-    
+
     return (
-    <>
-         <Card>
-            <Card.Body>
-                <h2 className="text-center mb-4">Sign Up</h2>
-                {error && <Alert variant="danger">{error}</Alert>} 
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group id="email">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" ref={emailRef} required />
-                    </Form.Group>
-                    <Form.Group id="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" ref={passwordRef} required />
-                    </Form.Group>
-                    <Form.Group id="password-confirm">
-                        <Form.Label>Password Confirmation</Form.Label>
-                        <Form.Control type="password" ref={passwordConfirmRef} required />
-                    </Form.Group>
-                    <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
-                </Form>
-            </Card.Body>
-         </Card>   
-         <div className="w-100 text-center mt-2">
-             Already have an account? <Link to="/login">Log In</Link>
-         </div>
-    </>
+        <Container 
+        className="d-flex align-items-center justify-content-center" // align-items-center: vertical center, justify-content-center: horizontal center
+        style = {{ minHeight: "100vh"}}> 
+        <Row className="w-100 align-items-center justify-content-center" style={{maxWidth: '900px'}}>
+            <div className="w-100 ml-auto mr-auto" style={{maxWidth: '400px'}}>  
+            <Col className="mb-4">
+                <div className="w-100 center text-center" style={{ maxWidth: "400px"}}>
+                <img src={heart} alt="heart" style={{width: "300px", height: "300px"}}/>
+                </div>
+                <div className="w-100 center text-center" style={ heartText }>
+                    We love all of our pets!
+                </div>
+            </Col>
+            </div>
+
+            <div className="w-100 ml-auto mr-auto" style={{maxWidth: '400px'}}>  
+            <Col className="mt-2">
+                <Card className="shadow">
+                    <div className="mt-3" style={{margin: "auto", width: "300px", overflow: "hidden"}}>
+                    <img src={logo} alt="logo" style={{marginLeft: "30px", marginRight: "7px", width: "55%", float: "left"}} />  
+                    <div style={ socialText }>Social</div>
+                    </div>
+                    <Card.Body className="mt-3">
+                        <h2 className="text-center mb-4" style={ memberLoginText }>
+                            Sign Up
+                        </h2>
+                        {error && <Alert variant="danger">{error}</Alert>} 
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group id="email" className="mb-4">
+                                <Form.Label style={ normalText }>Email</Form.Label>
+                                <Form.Control type="email" ref={emailRef} required />
+                            </Form.Group>
+                            <Form.Group id="password" className="mb-4">
+                                <Form.Label style={ normalText }>Password</Form.Label>
+                                <Form.Control type="password" ref={passwordRef} required />
+                                <Form.Text style={ normalText } muted>Must be longer than 6 characters/numbers</Form.Text>
+                            </Form.Group>
+                            <Form.Group id="password-confirm" className="mb-5">
+                                <Form.Label style={ normalText }>Password Confirmation</Form.Label>
+                                <Form.Control type="password" ref={passwordConfirmRef} required />
+                            </Form.Group>
+                            <Button disabled={loading} className="w-100 mb-3" type="danger" style={ buttonStyle }>
+                                Sign Up
+                            </Button>
+                        </Form>
+                    </Card.Body>
+                </Card>   
+                <div className="w-100 text-center mt-3" style={ linkStyle }>
+                    Already have an account? <Link to="/login" style={{color: "#BB0101"}}>Log In</Link>
+                </div>
+            </Col>
+            </div>
+            <img src={circle} alt ="Quarter Circle" style={{position: "absolute", top: 0, right: 0, zIndex: -1}} />
+        </Row>
+    </Container>
     )
 }
