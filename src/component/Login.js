@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { heartText, memberLoginText, buttonStyle, linkStyle, socialText } from '../style'
 import heart from '../heart-1.png'
 import circle from '../Subtract.svg'
-import logo from '../logo.png'
+import logo from '../LogoSocial.svg'
 
 export default function Login() {
     const emailRef = useRef()
@@ -49,9 +49,8 @@ export default function Login() {
             <div className="w-100 ml-auto mr-auto" style={{maxWidth: '400px'}}>  
             <Col className="mt-2">
                 <Card className="shadow">
-                    <div className="mt-3" style={{margin: "auto", width: "300px", overflow: "hidden"}}>
-                    <img src={logo} alt="logo" style={{marginLeft: "30px", marginRight: "7px", width: "55%", float: "left"}} />  
-                    <div style={ socialText }>Social</div>
+                    <div className="d-flex align-items-center justify-content-center mt-3" style={{margin: "auto", paddingLeft: "20px", paddingRight: "20px", overflow: "hidden"}}>
+                        <img src={logo} alt="logo" style={{width: "125%"}} />  
                     </div>
                     <Card.Body className="mt-3">
                         <h2 className="text-center mb-4" style={ memberLoginText }>

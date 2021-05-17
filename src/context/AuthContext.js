@@ -10,6 +10,12 @@ export function useAuth() { // access to AuthContext provider through useAuth()
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
+    const [sidebarVisible, setSidebarVisible] = useState(true)
+    const [currentScreen, setCurrentScreen] = useState(window.innerWidth)
+
+    function showSidebar() {
+        return setSidebarVisible(!sidebarVisible)
+    }
 
     function signup(email, password) { // create user email and password
         return auth.createUserWithEmailAndPassword(email, password)
@@ -39,6 +45,7 @@ export function AuthProvider({ children }) {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false) // after the verification of the user, we stop the loading
+            setSidebarVisible(true)
         })
 
         return unsubscribe
@@ -51,7 +58,12 @@ export function AuthProvider({ children }) {
         logout,
         resetPassword,
         updateEmail,
-        updatePassword
+        updatePassword,
+        showSidebar,
+        sidebarVisible,
+        setSidebarVisible,
+        currentScreen,
+        setCurrentScreen
     }
     return (
         <AuthContext.Provider value={value}>
