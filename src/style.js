@@ -63,3 +63,10 @@ export const menuActive ={
     background: "#F2F1F1", 
     paddingTop: "50px"
 }
+
+export const uploadImageButton = {
+    border: "2px solid #C6C6C6", 
+    borderRadius: "5px", 
+    minHeight: "260px", 
+    borderStyle: "dashed"
+}

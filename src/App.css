@@ -7,6 +7,10 @@
     fill: #BB0101;
 }
 
+.cancelPhotoLogo:hover {
+    background-color: red;
+}
+
 .menu {
     width: 350px;
     overflow: auto; 
@@ -50,6 +54,7 @@
         -o-filter: blur(2px);
         -ms-filter: blur(2px);
         filter: blur(2px);
+        pointer-events: none;
     }
 
 

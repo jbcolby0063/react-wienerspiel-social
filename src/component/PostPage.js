@@ -1,12 +1,13 @@
 import React, {useRef, useState} from 'react'
 import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap'
-import { postButtonStyle } from '../style'
+import { postButtonStyle, uploadImageButton } from '../style'
 import { useAuth } from '../context/AuthContext'
 import "../App.css"
 import {ReactComponent as FacebookLogo} from '../facebookLogo.svg'
 import {ReactComponent as InstaLogo} from '../instagramLogo.svg'
 import {ReactComponent as TwitterLogo} from '../twitterLogo.svg'
-import cancelLogo from '../cancelLogo.svg'
+import cancelPhotoLogo from '../cancelPhotoLogo.svg'
+import photoIcon from '../photoLibrary.svg'
 
 export default function PostPage() {
     const imageRef = useRef()
@@ -20,6 +21,10 @@ export default function PostPage() {
         }
     }
 
+    function changeImage() {
+        document.getElementById("upload-button").click();
+      }
+
     return (
         <Container id={sidebarVisible && "content"} className="d-flex align-items-center justify-content-center" style = {{flex: "1"}}>
             <div className="w-100 ml-auto mr-auto" style={{maxWidth: '500px'}} >
@@ -32,13 +37,29 @@ export default function PostPage() {
                 
                     <Card style={{maxHeight: "600px"}}>
                         <Card.Body className="d-flex flex-column overflow-auto" style={{flex: "1"}}>
-                            <Card.Img src={uploadImage} style={{minHeight:"260px"}} />
-                            <Form.Group>
-                                <Form.File id="exampleFormControlFile1" required ref={imageRef} onChange={handleImage} />
-                            </Form.Group>
+                            <div>
+                                {uploadImage ? 
+                                    (<div style={{position: "relative", width: "100%"}}>
+                                        <Button variant="light" component="span" onClick={changeImage} className="d-flex flex-column align-items-center justify-content-center" style={{position: "absolute", top: "3%", right: "3%"}}>
+                                            <img src={cancelPhotoLogo} /> 
+                                        </Button>
+                                        <Card.Img src={uploadImage} style={{width: "100%", height: "auto"}} />
+                                    </div>) 
+                                    : (<label type="button" htmlFor="upload-button" required className="d-flex flex-column align-items-center justify-content-center" style={uploadImageButton}>
+                                        <span >
+                                            <img src={photoIcon} />
+                                        </span> 
+                                            <h5 className="text-center mt-2" style={{color: "#BB0101"}}>Upload your photo</h5>
+                                       </label>) }
+                            </div>
+                            
+                
 
                             <Form.Group id="textpost">
-                                <Form.Control className="border border-white overflow-auto" as="textarea" required rows={10} placeholder="Write a caption..." style={{minHeight: "200px", maxHeight: "200px"}}/>
+                                <Form.Control className="border border-white overflow-auto mt-3" as="textarea" required rows={10} placeholder="Write a caption..." style={{minHeight: "200px", maxHeight: "200px"}}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.File required id="upload-button" ref={imageRef} accept="image/*, video/*" onChange={handleImage} style={{display: "none"}} />
                             </Form.Group>
                             <div className="d-flex justify-content-center mt-auto">
                             <Row>
@@ -50,7 +71,6 @@ export default function PostPage() {
                         </Card.Body>
                     </Card>
                     <div className="d-flex align-items-center justify-content-center">
-                    {/* disabled={loading} */}
                     <Button className="mt-4" type="submit" variant="danger" style={postButtonStyle}>Post</Button>   
                     </div>
                 </Form>
