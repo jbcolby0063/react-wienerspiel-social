@@ -7,8 +7,9 @@
     fill: #BB0101;
 }
 
-.cancelPhotoLogo:hover {
-    background-color: red;
+button:hover > .closeButton {
+    background-color: #E9E8E8;
+    cursor: pointer;
 }
 
 .menu {

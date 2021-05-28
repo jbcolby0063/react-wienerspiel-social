@@ -49,7 +49,7 @@ export default function Sidebar() {
         <div className={sidebarVisible ? "menu" : "menu nonactive"}>
            {error && <Alert variant="danger">{error}</Alert>} 
            <Link to="/" style={{textDecoration: "none"}} onClick={smallScreenSetSidabar}><SidebarRow Icon={Post} title="Post"/></Link>
-           <div type="button"><SidebarRow Icon={Analytics} title="Analytics" /></div>
+           <Link to="/analytics" style={{textDecoration: "none"}} onClick={smallScreenSetSidabar}><SidebarRow Icon={Analytics} title="Analytics" /></Link>
            <div type="button" onClick={handleLogout}><SidebarRow Icon={LogoutLogo} title="Logout" /></div>
         </div>
     )

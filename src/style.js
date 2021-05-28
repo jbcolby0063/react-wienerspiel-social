@@ -70,3 +70,14 @@ export const uploadImageButton = {
     minHeight: "260px", 
     borderStyle: "dashed"
 }
+
+export const imageCloseButton = {
+    position: "absolute", 
+    top: "3%", 
+    right: "3%", 
+    height: "35px", 
+    weight: "35px", 
+    borderRadius: "50%", 
+    border: "none", 
+    backgroundColor: "#F8F8F8"
+}

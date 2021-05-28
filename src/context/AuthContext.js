@@ -45,7 +45,9 @@ export function AuthProvider({ children }) {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false) // after the verification of the user, we stop the loading
-            setSidebarVisible(true)
+            if (window.innerWidth < 1300) {
+                setSidebarVisible(false)
+            }
         })
 
         return unsubscribe

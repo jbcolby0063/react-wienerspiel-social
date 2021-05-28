@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 
-export default function UpdateProfile(changeContent) {
+export default function UpdateProfile() {
     const emailRef = useRef()
     const { currentUser, updateEmail, sidebarVisible } = useAuth() // access directly to signup function from the AuthContext.Provider value
     const [error, setError] = useState('')
