@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react'
 import { Form, Button, Card, Alert, Container, Row, Col } from 'react-bootstrap'
 import { postButtonStyle, uploadImageButton, imageCloseButton } from '../style'
 import { useAuth } from '../context/AuthContext'
-import {db} from '../firebase'
+import {db, storage} from '../firebase'
 import { useHistory } from "react-router-dom"
 import "../App.css"
 import {ReactComponent as FacebookLogo} from '../facebookLogo.svg'
@@ -16,19 +16,26 @@ export default function PostPage() {
     const titleRef = useRef()
     const textRef = useRef()
     const [uploadImage, setUploadImage] = useState(null)
+    const [uploadImageURL, setUploadImageURL] = useState("")
+    const [previewImage, setPreviewImage] = useState(null)
     const [error, setError] = useState(false)
     const [imageError, setImageError] = useState(false)
     const [checkCount, setCheckCount] = useState(0)
     const [socialList, setSocialList] = useState([])
-    const [imageFile, setImageFile] = useState(null)
     const { sidebarVisible, currentUser } = useAuth()
     const history = useHistory()
 
-    function handleImage(event) { // convert image files into image url
-        setImageFile(event.target.files[0])
-        if (event.target.files[0] != null) {
-            setUploadImage(URL.createObjectURL(event.target.files[0]))
+    function handleImage(e) { // convert image files into image url
+        if (e.target.files[0]) {
+            setUploadImage(e.target.files[0])
+            setPreviewImage(URL.createObjectURL(e.target.files[0]))
         }
+    }
+
+    function cancelImage() { // remove image
+        setUploadImage(null)
+        setPreviewImage(null)
+        document.getElementById("upload-image").value = ""
     }
 
     function isChecked(e) { 
@@ -41,6 +48,34 @@ export default function PostPage() {
         }
     }
 
+    function handleStorage() { // firebase image storage 
+        const userID = currentUser.email.split("@")[0]
+        const uploadTask = storage.ref("users/" + userID + "/" + uploadImage.name).put(uploadImage) // image store path
+        uploadTask.on(
+            "state_changed", 
+            snapshot => {},
+            error => {
+                throw error
+            },
+            () => {
+                storage.ref("users/" + userID + "/" + uploadImage.name).getDownloadURL().then(url => {setUploadImageURL(url)})
+            })
+    }
+
+    function handleDB() { // firebase database
+        const userID = currentUser.email.split("@")[0]
+        const postRef = db.ref("users/" + userID) // data store path
+        const postData = { // data to store in firebase
+            user: currentUser.email,
+            title: titleRef.current.value,
+            text: textRef.current.value,
+            imageName: uploadImage.name,
+            time: new Date().toLocaleString(),
+            socialMedia: socialList
+        }
+        postRef.push(postData) // push the data to userID folder in firebase realtime database 
+    }
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -48,24 +83,15 @@ export default function PostPage() {
         try {
             setError(false)
             setImageError(false)
-            const userID = currentUser.email.split("@")[0]
-            const postRef = db.ref("users/" + userID) // data store path
-            const postData = { // data to store in firebase
-                user: currentUser.email,
-                title: titleRef.current.value,
-                text: textRef.current.value,
-                imageURL: uploadImage,
-                imageFile: imageFile,
-                time: new Date().toLocaleString(),
-                socialMedia: socialList
-            }
+
             if (uploadImage == null) { 
                 setImageError("Upload Image")
             }
-            await postRef.push(postData) // push the data to userID folder in firebase realtime database 
+            await handleStorage()
+            await handleDB()
             history.push("/analytics")
-        } catch {
-            setError("Failed to upload")
+        } catch (err) {
+            setError("Failed to upload: ", err)
         }
         
     }
@@ -88,10 +114,10 @@ export default function PostPage() {
                             <div>
                                 {uploadImage ? 
                                     (<div style={{position: "relative", width: "100%"}}>
-                                        <button onClick={() => {setUploadImage(null)}} className="d-flex flex-column align-items-center justify-content-center" style={imageCloseButton}>
+                                        <button onClick={cancelImage} className="d-flex flex-column align-items-center justify-content-center" style={imageCloseButton}>
                                             <img src={closeLogo} /> 
                                         </button>
-                                        <Card.Img src={uploadImage} style={{width: "100%", height: "auto"}} />
+                                        <Card.Img src={previewImage} style={{width: "100%", height: "auto"}} />
                                     </div>) 
                                     : (<label type="button" htmlFor="upload-image" required className="d-flex flex-column align-items-center justify-content-center" style={uploadImageButton}>
                                         <span >

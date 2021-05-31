@@ -51,13 +51,7 @@ export default function Topbar() {
             setSidebarVisible(false)
         }
     }
-
-    useEffect(() => {
-        if (window.innerWidth < 1300) {
-            setSidebarVisible(false)
-        } 
-    }, [])
-
+    
     return (
         <div>
             <Navbar className="d-flex align-items-center justify-content-center" style={{boxShadow: "0 8px 6px -6px #999", zIndex: "2"}}>
