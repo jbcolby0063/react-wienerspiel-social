@@ -16,7 +16,7 @@ export default function Dashboard() {
         <div className="d-flex flex-column" style={{height: "100vh"}}>
             <div ><Topbar  /></div>
             <div className="page d-flex align-content-stretch" style={{flex: "1"}}>
-                <Sidebar  />
+                <Sidebar current="postpage"  />
                 <PostPage />
             </div>
            

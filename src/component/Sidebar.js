@@ -8,7 +8,7 @@ import {ReactComponent as Analytics} from '../analytics.svg'
 import SidebarRow from './SidebarRow'
 import "../App.css"
 
-export default function Sidebar() {
+export default function Sidebar({current}) {
     const [error, setError] = useState("")
     const { logout, sidebarVisible, setSidebarVisible, currentScreen, setCurrentScreen } = useAuth()
     const history = useHistory()
@@ -48,8 +48,8 @@ export default function Sidebar() {
     return (
         <div className={sidebarVisible ? "menu" : "menu nonactive"}>
            {error && <Alert variant="danger">{error}</Alert>} 
-           <Link to="/" style={{textDecoration: "none"}} onClick={smallScreenSetSidabar}><SidebarRow Icon={Post} title="Post"/></Link>
-           <Link to="/analytics" style={{textDecoration: "none"}} onClick={smallScreenSetSidabar}><SidebarRow Icon={Analytics} title="Analytics" /></Link>
+           <div style={current === "postpage" ? {backgroundColor: "#DADADA"} : {}}><Link to="/" style={{textDecoration: "none"}} onClick={smallScreenSetSidabar}><SidebarRow Icon={Post} title="Post"/></Link></div>
+           <div style={current === "analyticspage" ? {backgroundColor: "#DADADA"} : {}}><Link to="/analytics" style={{textDecoration: "none"}} onClick={smallScreenSetSidabar}><SidebarRow Icon={Analytics} title="Analytics" /></Link></div>
            <div type="button" onClick={handleLogout}><SidebarRow Icon={LogoutLogo} title="Logout" /></div>
         </div>
     )
