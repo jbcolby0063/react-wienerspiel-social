@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import {buttonStyle, linkStyle, memberLoginText, normalText} from '../style'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import PostList from "./PostList"
 import { db } from '../firebase'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
@@ -15,7 +16,7 @@ export default function Analytics() {
     const [loading, setLoading] = useState(false)
     const [dataList, setDataList] = useState()
     const history = useHistory()
-    let recentpost = "Title".padEnd(10)+"Date" 
+    let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(17) + "VIEWERS"
     useEffect(() => {
         const userID = currentUser.email.split("@")[0]
         const postList = db.ref("users/" + userID)
@@ -38,35 +39,33 @@ export default function Analytics() {
         <Sidebar current="analyticspage" />
         <div id={sidebarVisible && "content"} className="content d-flex flex-wrap" style={{flex: "1"}}>
             <CardColumns className="m-5">
-                <Card className="shadow" style={{minwidth: "870px"}}>
+                <Card className="shadow" >
                     <Card.Body>
                         <Card.Title>Analytics 1</Card.Title>
                         <Card.Text>first</Card.Text>
                     </Card.Body>
                 </Card>
-                <Card className="shadow" style={{minWidth: "870px"}}>
+                <Card className="shadow" >
                     <Card.Body>
                         <Card.Title>Analytics 2</Card.Title>
                         <Card.Text>second</Card.Text>
                     </Card.Body>
                 </Card>
-                <Card className="shadow" style={{minWidth: "870px"}}>
+                <Card className="shadow" >
                     <Card.Body>
                         <Card.Title>Analytics 3</Card.Title>
                         <Card.Text>third</Card.Text>
                     </Card.Body>
                 </Card>
-                <Card className="shadow" style={{maxWidth: "450px", minHeight: "600px"}}>
+                <Card className="shadow">
                     <Card.Body>
                         <Card.Title style={{color: "#BB0101"}}><h3>Recent Posts</h3></Card.Title>
                         <Card.Text>
-                            <div>{recentpost}</div>
-                            <ButtonGroup vertical>
-                                {dataList ? dataList.map((data) => 
-                                <Button variant="outline-danger">
-                                    {data.title} {data.time}
-                                </Button>) : ""}
-                            </ButtonGroup>
+                            <div className="mt-3">
+                                <div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div>
+                            
+                                {dataList ? dataList.map((data) => <PostList data={data} />) : ""}
+                            </div>
                             
                         </Card.Text>
                     </Card.Body>

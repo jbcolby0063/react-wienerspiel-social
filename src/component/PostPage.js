@@ -71,7 +71,8 @@ export default function PostPage() {
             text: textRef.current.value,
             imageName: uploadImage.name,
             time: new Date().toLocaleString(),
-            socialMedia: socialList
+            socialMedia: socialList,
+            viewers : 0
         }
         postRef.push(postData) // push the data to userID folder in firebase realtime database 
     }

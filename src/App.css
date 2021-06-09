@@ -7,6 +7,11 @@
     fill: #BB0101;
 }
 
+.postListButton:hover {
+    background-color: #E0E0E0;
+    cursor: pointer;
+}
+
 button:hover > .closeButton {
     background-color: #E9E8E8;
     cursor: pointer;
