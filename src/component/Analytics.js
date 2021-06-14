@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect }from 'react'
-import { Form, Button, Card, Alert, CardColumns, ButtonGroup } from 'react-bootstrap'
+import { Form, Button, Card, Alert, CardColumns, ButtonGroup, Row, Col } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import {buttonStyle, linkStyle, memberLoginText, normalText} from '../style'
@@ -38,40 +38,49 @@ export default function Analytics() {
         <div className="page d-flex align-content-stretch" style={{flex: "1"}}>
         <Sidebar current="analyticspage" />
         <div id={sidebarVisible && "content"} className="content d-flex flex-wrap" style={{flex: "1"}}>
-            <CardColumns className="m-5">
-                <Card className="shadow" >
-                    <Card.Body>
-                        <Card.Title>Analytics 1</Card.Title>
-                        <Card.Text>first</Card.Text>
-                    </Card.Body>
-                </Card>
-                <Card className="shadow" >
-                    <Card.Body>
-                        <Card.Title>Analytics 2</Card.Title>
-                        <Card.Text>second</Card.Text>
-                    </Card.Body>
-                </Card>
-                <Card className="shadow" >
-                    <Card.Body>
-                        <Card.Title>Analytics 3</Card.Title>
-                        <Card.Text>third</Card.Text>
-                    </Card.Body>
-                </Card>
-                <Card className="shadow">
-                    <Card.Body>
-                        <Card.Title style={{color: "#BB0101"}}><h3>Recent Posts</h3></Card.Title>
-                        <Card.Text>
-                            <div className="mt-3">
-                                <div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div>
-                            
-                                {dataList ? dataList.map((data) => <PostList data={data} />) : ""}
-                            </div>
-                            
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-
-            </CardColumns>
+            <Row className="m-5 w-100 overflow-auto">
+                <Col className="d-flex flex-column">
+                    <Card className="shadow" style={{width: "700px"}}>
+                        <Card.Body>
+                            <Card.Title>Analytics 1</Card.Title>
+                            <Card.Text>first</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="shadow mt-3" style={{width: "700px"}}>
+                        <Card.Body>
+                            <Card.Title>Analytics 2</Card.Title>
+                            <Card.Text>second</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="shadow mt-3" style={{width: "700px"}}>
+                        <Card.Body>
+                            <Card.Title>Analytics 3</Card.Title>
+                            <Card.Text>third</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="shadow mt-3" style={{width: "700px"}}>
+                        <Card.Body>
+                            <Card.Title>Analytics 4</Card.Title>
+                            <Card.Text>fourth</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card className="shadow" style={{width: "520px"}}>
+                        <Card.Body>
+                            <Card.Title style={{color: "#BB0101"}}><h3>Recent Posts</h3></Card.Title>
+                            <Card.Text>
+                                <div className="mt-3">
+                                    <div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div>
+                                
+                                    {dataList ? dataList.map((data) => <PostList data={data} />) : ""}
+                                </div>
+                                
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
         </div>
         </div>
     </div>

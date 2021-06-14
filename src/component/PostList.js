@@ -15,10 +15,10 @@ export default function PostList({data}) {
         <div className="postListButton" style={{borderRadius: "10px", padding: "15px 20px"}}>
             <pre style={{color:"#878787", margin: "0"}}>
                 <div style={{float: "left"}}>{dataL}</div>
-                <div style={{float: "left", width: "150px"}}>
-                {socialL.includes("facebookCheck") && <FacebookLogo style={{width: "23px", height: "23px", marginBottom: "5px", marginRight: "10px"}} />} 
-                {socialL.includes("instagramCheck") && <InstaLogo style={{width: "20px", height: "20px", marginBottom: "5px", marginRight: "10px"}} />}
-                {socialL.includes("twitterCheck") && <TwitterLogo style={{width: "20px", height: "20px", marginBottom: "5px", marginRight: "10px"}} />}
+                <div style={{float: "left", width: "150px", marginBottom: "5px"}}>
+                    {socialL.includes("facebookCheck") && <FacebookLogo style={{width: "23px", height: "23px", marginRight: "10px"}} />}
+                    {socialL.includes("instagramCheck") && <InstaLogo style={{width: "20px", height: "20px", marginRight: "10px"}} />}
+                    {socialL.includes("twitterCheck") && <TwitterLogo style={{width: "20px", height: "20px", marginRight: "10px"}} />}
                 </div>
                 <div style={{float: "left"}}>
                     {viewerL}
