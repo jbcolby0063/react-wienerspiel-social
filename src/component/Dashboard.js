@@ -1,16 +1,9 @@
-import React, { useState } from 'react'
-import { Card, Button, Alert, Navbar } from 'react-bootstrap'
-import { useAuth } from '../context/AuthContext'
-import { Link, useHistory } from 'react-router-dom'
+import React from 'react'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import PostPage from './PostPage'
-import UpdateProfile from './UpdateProfile'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 export default function Dashboard() {
-    const [error, setError] = useState("")
-    const history = useHistory()
 
     return (
         <div className="d-flex flex-column" style={{height: "100vh"}}>

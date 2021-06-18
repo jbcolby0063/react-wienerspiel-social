@@ -3,7 +3,6 @@ import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import {buttonStyle, linkStyle, memberLoginText, normalText} from '../style'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 

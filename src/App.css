@@ -8,8 +8,18 @@
 }
 
 .postListButton:hover {
-    background-color: #E0E0E0;
+    background-color: #E0E0E0 !important;
     cursor: pointer;
+}
+
+.closeButton:hover {
+    background-color: #E5E5E5 !important;
+}
+
+#analyticsBg {
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    pointer-events: none;
 }
 
 button:hover > .closeButton {

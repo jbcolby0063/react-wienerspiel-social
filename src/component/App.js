@@ -9,8 +9,7 @@ import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 import Analytics from "./Analytics"
-import Topbar from "./Topbar";
-import Sidebar from "./Sidebar";
+
 // https://getbootstrap.com/docs/4.1/utilities/flex/
 // npm i bootstrap react-bootstrap 
 // npm install react-router-dom

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Form, Button, Card, Alert, CardColumns, ButtonGroup } from 'react-bootstrap'
 import {ReactComponent as FacebookLogo} from '../facebookLogo.svg'
 import {ReactComponent as InstaLogo} from '../instagramLogo.svg'
 import {ReactComponent as TwitterLogo} from '../twitterLogo.svg'
@@ -12,18 +11,17 @@ export default function PostList({data}) {
     const socialL = data.socialMedia
     const viewerL = data.viewers
     return (
-        <div className="postListButton" style={{borderRadius: "10px", padding: "15px 20px"}}>
+        
             <pre style={{color:"#878787", margin: "0"}}>
                 <div style={{float: "left"}}>{dataL}</div>
                 <div style={{float: "left", width: "150px", marginBottom: "5px"}}>
-                    {socialL.includes("facebookCheck") && <FacebookLogo style={{width: "23px", height: "23px", marginRight: "10px"}} />}
-                    {socialL.includes("instagramCheck") && <InstaLogo style={{width: "20px", height: "20px", marginRight: "10px"}} />}
-                    {socialL.includes("twitterCheck") && <TwitterLogo style={{width: "20px", height: "20px", marginRight: "10px"}} />}
+                    {socialL.includes("facebookCheck") && <FacebookLogo style={{width: "23px", height: "23px", marginRight: "10px", float: "left", position: "relative", bottom: "2px"}} />}
+                    {socialL.includes("instagramCheck") && <InstaLogo style={{width: "20px", height: "20px", marginRight: "10px", float: "left"}} />}
+                    {socialL.includes("twitterCheck") && <TwitterLogo style={{width: "20px", height: "20px", marginRight: "10px", float: "left"}} />}
                 </div>
                 <div style={{float: "left"}}>
                     {viewerL}
                 </div>
             </pre> 
-        </div>
     )
 }

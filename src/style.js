@@ -81,3 +81,31 @@ export const imageCloseButton = {
     border: "none", 
     backgroundColor: "#F8F8F8"
 }
+
+export const postCloseButton = {
+    position: "absolute", 
+    top: "7px", 
+    right: "7px", 
+    height: "35px", 
+    weight: "35px", 
+    borderRadius: "50%", 
+    border: "none", 
+    backgroundColor: "#F8F8F8"
+}
+
+export const postList = {
+    borderRadius: "10px", 
+    padding: "15px 20px", 
+    border: "none", 
+    width: "480px", 
+    backgroundColor: "white"
+}
+
+export const analyticsIcons = {
+    width: "31px", 
+    height: "31px", 
+    marginTop:"1px", 
+    marginRight: "6px", 
+    float: "left", 
+    fill: "#BB0101"
+}

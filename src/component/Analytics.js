@@ -1,21 +1,21 @@
-import React, { useRef, useState, useEffect }from 'react'
-import { Form, Button, Card, Alert, CardColumns, ButtonGroup, Row, Col } from 'react-bootstrap'
+import React, { useState, useEffect }from 'react'
+import { Card} from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
-import { Link, useHistory } from 'react-router-dom'
-import {buttonStyle, linkStyle, memberLoginText, normalText} from '../style'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { postList, analyticsIcons } from '../style'
 import PostList from "./PostList"
+import PostDetail from './PostDetail'
 import { db } from '../firebase'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
+import {ReactComponent as FacebookLogo} from '../facebookLogo.svg'
+import {ReactComponent as InstaLogo} from '../instagramLogo.svg'
+import {ReactComponent as RecentPostLogo} from '../recentPostLogo.svg'
+import {ReactComponent as TotalViewsLogo} from '../totalViewsLogo.svg'
+import "../App.css"
 
 export default function Analytics() {
-    const emailRef = useRef()
-    const { currentUser, updateEmail, sidebarVisible } = useAuth() // access directly to signup function from the AuthContext.Provider value
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
+    const { currentUser, sidebarVisible, postDetailVisible, setPostDetailVisible } = useAuth() // access directly to the values from the AuthContext.Provider 
     const [dataList, setDataList] = useState()
-    const history = useHistory()
     let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(17) + "VIEWERS"
     useEffect(() => {
         const userID = currentUser.email.split("@")[0]
@@ -29,58 +29,60 @@ export default function Analytics() {
             setDataList(getData)
         })
     }, [])
-
     
     return (
     <>
-    <div className="d-flex flex-column" style={{height: "100vh"}}>
-        <div ><Topbar  /></div>
+    {postDetailVisible && <PostDetail data={postDetailVisible} />}
+    
+    <div id={postDetailVisible && "analyticsBg"} className="d-flex flex-column" style={{height: "100vh"}}>
+        <div ><Topbar /></div>
         <div className="page d-flex align-content-stretch" style={{flex: "1"}}>
         <Sidebar current="analyticspage" />
-        <div id={sidebarVisible && "content"} className="content d-flex flex-wrap" style={{flex: "1"}}>
-            <Row className="m-5 w-100 overflow-auto">
-                <Col className="d-flex flex-column">
-                    <Card className="shadow" style={{width: "700px"}}>
+        <div id={sidebarVisible && "content"} className="content d-flex w-100 p-5 overflow-auto" style={{flex: "1"}}>
+            <div className="d-flex flex-row flex-wrap" style={{margin: "auto"}}>
+                <div className="d-flex flex-column mr-4" style={{width: "780px"}}>
+                    <Card className="shadow mt-3" style={{width: "780px", height: "350px"}}>
                         <Card.Body>
-                            <Card.Title>Analytics 1</Card.Title>
+                            <Card.Title><TotalViewsLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Total Viewers</h3></Card.Title>
                             <Card.Text>first</Card.Text>
                         </Card.Body>
                     </Card>
-                    <Card className="shadow mt-3" style={{width: "700px"}}>
+                    <div className="d-flex flex-row">
+                        <Card className="shadow mt-3" style={{width: "385px", height: "450px", marginRight: "10px"}}>
+                            <Card.Body>
+                                <Card.Title><FacebookLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Facebook</h3></Card.Title>
+                                <Card.Subtitle className="mb-2" style={{color:"#878787"}}>Overall Analytics</Card.Subtitle>
+                                <Card.Text>second</Card.Text>
+                            </Card.Body>
+                        </Card>
+                        <Card className="shadow mt-3" style={{width: "385px", height: "450px"}}>
+                            <Card.Body>
+                                <Card.Title><InstaLogo style={{width: "25px", height: "25px", marginTop:"5px", marginRight: "9px", float: "left", fill: "#BB0101"}} /><h3 style={{color: "#BB0101"}}>Instagram</h3></Card.Title>
+                                <Card.Subtitle className="mb-2" style={{color:"#878787"}}>Overall Analytics</Card.Subtitle>
+                                <Card.Text>third</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                </div>
+                <div>
+                    <Card className="shadow overflow-auto mt-3" style={{width: "520px", height:"816px"}}>
                         <Card.Body>
-                            <Card.Title>Analytics 2</Card.Title>
-                            <Card.Text>second</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card className="shadow mt-3" style={{width: "700px"}}>
-                        <Card.Body>
-                            <Card.Title>Analytics 3</Card.Title>
-                            <Card.Text>third</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card className="shadow mt-3" style={{width: "700px"}}>
-                        <Card.Body>
-                            <Card.Title>Analytics 4</Card.Title>
-                            <Card.Text>fourth</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col>
-                    <Card className="shadow" style={{width: "520px"}}>
-                        <Card.Body>
-                            <Card.Title style={{color: "#BB0101"}}><h3>Recent Posts</h3></Card.Title>
+                            <Card.Title><RecentPostLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Recent Posts</h3></Card.Title>
                             <Card.Text>
                                 <div className="mt-3">
                                     <div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div>
                                 
-                                    {dataList ? dataList.map((data) => <PostList data={data} />) : ""}
+                                    {dataList ? dataList.map((data) => 
+                                    <button type="button" className="postListButton overflow-auto" onClick={() => {setPostDetailVisible(data)}} style={postList}>
+                                        <PostList data={data} />
+                                    </button>) : ""}
                                 </div>
                                 
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </div>
         </div>
     </div>

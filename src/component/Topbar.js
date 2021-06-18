@@ -1,14 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import { Navbar, Dropdown, Button } from 'react-bootstrap'
+import React, {useState } from 'react'
+import { Navbar, Dropdown } from 'react-bootstrap'
 import menuIcon from '../menuIcon.svg'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import logo from '../LogoSocial.svg'
 import { normalText } from '../style'
 import account from "../account.svg"
-import UpdatePassword from './UpdatePassword'
-import UpdateProfile from './UpdateProfile'
-import Sidebar from './Sidebar'
 
 export const SidebarContext = React.createContext()
 

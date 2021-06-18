@@ -1,5 +1,5 @@
 import React, { useRef, useState }from 'react'
-import { Form, Button, Card, Alert, Container } from 'react-bootstrap'
+import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import { Link, useHistory } from 'react-router-dom'
 import {buttonStyle, linkStyle, memberLoginText, normalText} from '../style'
@@ -10,7 +10,7 @@ import Sidebar from './Sidebar'
 export default function UpdatePassword() {
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const { currentUser, updatePassword, sidebarVisible} = useAuth() // access directly to signup function from the AuthContext.Provider value
+    const { updatePassword, sidebarVisible} = useAuth() // access directly to signup function from the AuthContext.Provider value
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()

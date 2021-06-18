@@ -44,7 +44,7 @@ export default function PostPage() {
             setSocialList(arr => [...arr, e.target.id])
         } else { // if current social media is unchosen, remove it from the list and minus 1 to checkCount 
             setCheckCount(checkCount - 1)
-            setSocialList(socialList.filter(item => item != e.target.id))
+            setSocialList(socialList.filter(item => item !== e.target.id))
         }
     }
 
@@ -115,14 +115,14 @@ export default function PostPage() {
                             <div>
                                 {uploadImage ? 
                                     (<div style={{position: "relative", width: "100%"}}>
-                                        <button onClick={cancelImage} className="d-flex flex-column align-items-center justify-content-center" style={imageCloseButton}>
-                                            <img src={closeLogo} /> 
+                                        <button onClick={cancelImage} className="closeButton d-flex flex-column align-items-center justify-content-center" style={imageCloseButton}>
+                                            <img src={closeLogo} alt="closeLogo" /> 
                                         </button>
                                         <Card.Img src={previewImage} style={{width: "100%", height: "auto"}} />
                                     </div>) 
                                     : (<label type="button" htmlFor="upload-image" required className="d-flex flex-column align-items-center justify-content-center" style={uploadImageButton}>
                                         <span >
-                                            <img src={photoIcon} />
+                                            <img src={photoIcon} alt="photoIcon" />
                                         </span> 
                                             <h5 className="text-center mt-2" style={{color: "#BB0101"}}>Upload your photo</h5>
                                        </label>) }
