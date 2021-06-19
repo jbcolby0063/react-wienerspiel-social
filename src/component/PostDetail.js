@@ -4,12 +4,20 @@ import closeLogo from '../closeLogo.svg'
 import { useAuth } from '../context/AuthContext'
 import "../App.css"
 import { postCloseButton } from '../style'
+import FacebookPost from './FacebookPost'
 
 export default function PostDetail({data}) {
     const titleL = data.title
+    const socialL = data.socialMedia
     const { setPostDetailVisible } = useAuth()
     function cancelImage() {
         setPostDetailVisible(false)
+    }
+
+    function fbPostAnalytics() {
+        if (true) {
+            <FacebookPost />
+        }
     }
 
     return (
@@ -22,6 +30,8 @@ export default function PostDetail({data}) {
                     {titleL}
                 </Card.Body>
             </Card>
+        <FacebookPost />
+
         </Container>
     )
 }

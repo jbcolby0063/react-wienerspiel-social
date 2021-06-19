@@ -12,6 +12,8 @@ import {ReactComponent as InstaLogo} from '../instagramLogo.svg'
 import {ReactComponent as RecentPostLogo} from '../recentPostLogo.svg'
 import {ReactComponent as TotalViewsLogo} from '../totalViewsLogo.svg'
 import "../App.css"
+import TotalViews from './TotalViews'
+import FacebookOverall from './FacebookOverall'
 
 export default function Analytics() {
     const { currentUser, sidebarVisible, postDetailVisible, setPostDetailVisible } = useAuth() // access directly to the values from the AuthContext.Provider 
@@ -44,7 +46,7 @@ export default function Analytics() {
                     <Card className="shadow mt-3" style={{width: "780px", height: "350px"}}>
                         <Card.Body>
                             <Card.Title><TotalViewsLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Total Viewers</h3></Card.Title>
-                            <Card.Text>first</Card.Text>
+                            <TotalViews />
                         </Card.Body>
                     </Card>
                     <div className="d-flex flex-row">
@@ -52,7 +54,7 @@ export default function Analytics() {
                             <Card.Body>
                                 <Card.Title><FacebookLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Facebook</h3></Card.Title>
                                 <Card.Subtitle className="mb-2" style={{color:"#878787"}}>Overall Analytics</Card.Subtitle>
-                                <Card.Text>second</Card.Text>
+                                <FacebookOverall />
                             </Card.Body>
                         </Card>
                         <Card className="shadow mt-3" style={{width: "385px", height: "450px"}}>
