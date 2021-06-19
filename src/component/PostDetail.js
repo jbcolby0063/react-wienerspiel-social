@@ -14,11 +14,18 @@ export default function PostDetail({data}) {
         setPostDetailVisible(false)
     }
 
-    function fbPostAnalytics() {
-        if (socialL) {
+    function PostCheck() {
+        if (socialL.includes("facebookCheck")) {
             return (
                 <FacebookPost />
             )
+        }
+        if (socialL.includes("instagramCheck")) {
+            // Add Instagram Post-specific analytics
+        }
+
+        if (socialL.includes("twitterCheck")) {
+            // Add Twitter Post-specific analytics
         }
     }
 
@@ -32,7 +39,7 @@ export default function PostDetail({data}) {
                     {titleL}
                 </Card.Body>
             </Card>
-            {fbPostAnalytics()}
+            {PostCheck()}
         </Container>
     )
 }
