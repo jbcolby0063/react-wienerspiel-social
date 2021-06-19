@@ -15,8 +15,10 @@ export default function PostDetail({data}) {
     }
 
     function fbPostAnalytics() {
-        if (true) {
-            <FacebookPost />
+        if (socialL) {
+            return (
+                <FacebookPost />
+            )
         }
     }
 
@@ -30,8 +32,7 @@ export default function PostDetail({data}) {
                     {titleL}
                 </Card.Body>
             </Card>
-        <FacebookPost />
-
+            {fbPostAnalytics()}
         </Container>
     )
 }
