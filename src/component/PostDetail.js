@@ -4,12 +4,29 @@ import closeLogo from '../closeLogo.svg'
 import { useAuth } from '../context/AuthContext'
 import "../App.css"
 import { postCloseButton } from '../style'
+import FacebookPost from './FacebookPost'
 
 export default function PostDetail({data}) {
     const titleL = data.title
+    const socialL = data.socialMedia
     const { setPostDetailVisible } = useAuth()
     function cancelImage() {
         setPostDetailVisible(false)
+    }
+
+    function PostCheck() {
+        if (socialL.includes("facebookCheck")) {
+            return (
+                <FacebookPost />
+            )
+        }
+        if (socialL.includes("instagramCheck")) {
+            // Add Instagram Post-specific analytics
+        }
+
+        if (socialL.includes("twitterCheck")) {
+            // Add Twitter Post-specific analytics
+        }
     }
 
     return (
@@ -22,6 +39,7 @@ export default function PostDetail({data}) {
                     {titleL}
                 </Card.Body>
             </Card>
+            {PostCheck()}
         </Container>
     )
 }
