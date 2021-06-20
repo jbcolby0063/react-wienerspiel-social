@@ -14,6 +14,7 @@ import Analytics from "./Analytics"
 // npm i bootstrap react-bootstrap 
 // npm install react-router-dom
 // npm i firebase
+// npm install --save react-chartjs-2 chart.js
 
 function App() {
   return (
