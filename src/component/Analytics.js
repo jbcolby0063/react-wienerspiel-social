@@ -16,6 +16,13 @@ import "../App.css"
 import FacebookOverall from './FacebookOverall'
 import InstagramOverall from './InstagramOverall'
 
+//Border Red: #BB0101
+//Background Red: rgba(187, 1, 1, 0.3)
+
+//Facebook Blue - #3B5998
+
+
+
 export default function Analytics() {
     const { currentUser, sidebarVisible, postDetailVisible, setPostDetailVisible } = useAuth() // access directly to the values from the AuthContext.Provider 
     const [dataList, setDataList] = useState()
@@ -43,7 +50,7 @@ export default function Analytics() {
             backgroundColor: "rgba(187, 1, 1, 0.3)",
             borderColor: '#BB0101',
             tension: "0.1"
-          },
+          }, 
         ],
     };
 
@@ -71,16 +78,13 @@ export default function Analytics() {
                         </Card.Body>
                     </Card>
                     <div className="d-flex flex-row">
-                        <Card className="shadow mt-3" style={{width: "385px", height: "450px", marginRight: "10px"}}>
+                        <Card className="shadow mt-3" style={{width: "385px", height: "650px", marginRight: "10px"}}>
                             <Card.Body>
                                 <Card.Title><FacebookLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Facebook</h3></Card.Title>
-                                <Card.Subtitle className="mb-2" style={{color:"#878787"}}>Overall Analytics</Card.Subtitle>
-                                <Card.Title>
-                                    <FacebookOverall />
-                                </Card.Title>
+                                <Card.Text><FacebookOverall /></Card.Text>
                             </Card.Body>
                         </Card>
-                        <Card className="shadow mt-3" style={{width: "385px", height: "450px"}}>
+                        <Card className="shadow mt-3" style={{width: "385px", height: "650px"}}>
                             <Card.Body>
                                 <Card.Title><InstaLogo style={{width: "25px", height: "25px", marginTop:"5px", marginRight: "9px", float: "left", fill: "#BB0101"}} /><h3 style={{color: "#BB0101"}}>Instagram</h3></Card.Title>
                                 <Card.Text>
