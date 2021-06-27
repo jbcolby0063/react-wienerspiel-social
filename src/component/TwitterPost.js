@@ -1,13 +1,20 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
-import { Doughnut, Pie } from 'react-chartjs-2'
 
 export default function TwitterPost() {
-    const [likes, setLikes] = useState(17)
-    const [views, setViews] = useState(40)
-    const [retweet, setRetweet] = useState(30)
-    const [reply, setReply] = useState(13)
-    const [hashtags, setHashtags] = useState(["#wienerspiel", "#dog", "#cat", "#happy", "#summer"])
+    const [likes, setLikes] = useState("")
+    const [views, setViews] = useState("")
+    const [retweet, setRetweet] = useState("")
+    const [reply, setReply] = useState("")
+    const [hashtags, setHashtags] = useState("")
+
+    useEffect(() => {
+        setViews(40)
+        setLikes(18)
+        setRetweet(29)
+        setReply(13)
+        setHashtags(["#wienerspiel", "#dog", "#cat", "#happy", "#summer"])
+    }, [])
 
     return (
         <div>

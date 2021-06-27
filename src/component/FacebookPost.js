@@ -1,38 +1,19 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { Doughnut } from 'react-chartjs-2'
 
 export default function FacebookPost() {
-    const [likes, setLikes] = useState(5)
-    const [views, setViews] = useState(10)
-    const [engagedUsers, setEngagedUsers] = useState(15)
-    const [reactionsChart, setReactionsChart] = useState({})
-    const styles = {
-        cardImage: {
-            height: 100,
-            width: 100
-        }
-    }
+    const [likes, setLikes] = useState("")
+    const [views, setViews] = useState("")
+    const [engagedUsers, setEngagedUsers] = useState("")
+    const [reactionData, setReactionsData] = useState("")
 
-    const data = () => {
-        setReactionsChart({
-            labels: ["Likes","Love","Wow","Haha","Sorry","Anger"],
-            datasets: [
-                {
-                label: "Reactions by Type",
-                data:[5,1,1,4,2,6]
-                }
-            ]
-        })
-
-    }
-
-    const reactionData = {
+    const reactionChart = {
         labels: ["Likes", "Love", "Wow", "Haha", "Sorry", "Anger"],
         datasets: [
           {
             label: "Reactions by Type",
-            data: [5, 1, 1, 4, 2, 6],
+            data: reactionData,
             backgroundColor: [
                 "rgb(54, 162, 235)",
                 "rgba(240, 1, 159, 0.67)",
@@ -50,6 +31,13 @@ export default function FacebookPost() {
         responsive: true,
         maintainAspectRatio: false
     }
+
+    useEffect(() => {
+        setLikes(5)
+        setViews(20)
+        setEngagedUsers(15)
+        setReactionsData([5 ,1, 1, 4, 2, 6])
+    }, [])
 
     return (
         <div>
@@ -69,67 +57,10 @@ export default function FacebookPost() {
                 <ListGroup.Item>
                     <div style={{color: "#898989"}}>Reaction Chart</div>
                     <div className="mt-2" style={{height: "350px"}}>
-                        <Doughnut data={reactionData} options={reactionOptions} />
+                        <Doughnut data={reactionChart} options={reactionOptions} />
                     </div>
                 </ListGroup.Item>
             </ListGroup>
         </div>
     )
 }
-
-
-/*
-const styles = {
-    cardImage: {
-        height: 30,
-    }
-}
-
-class FacebookPost extends Component {
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-            impressions: props.impressions,
-            likes: props.likes,
-            engagedUsers: props.engagedUsers,
-            reactionsChartData: props.reactionsChartData
-        }
-    }
-    
-    
-    render() {
-        return (
-            <div>
-                <Card>
-                    <Card.Img src="https://pngimg.com/uploads/like/like_PNG14.png" style={styles.cardImage}/>
-                    <Card.Title>
-                       {this.state.likes} Likes
-                    </Card.Title>
-                </Card>
-                <Card>
-                    <Card.Img src="https://www.seekpng.com/png/detail/103-1033438_as-akathmadevi-rightfully-points-out-social-media-social.png" style={styles.cardImage}/>
-                    <Card.Title>
-                       {this.state.engagedUsers} Engaged Users
-                    </Card.Title>
-                </Card>   
-                <Card>
-                    <Card.Img src="https://toppng.com/uploads/preview/eye-clipart-11550204568stb0llflhd.png" style={styles.cardImage}/>
-                    <Card.Title>
-                       {this.state.impressions} Impressions
-                    </Card.Title>
-                </Card>
-                <Pie
-                  data={this.state.reactionsChartData}
-                  options={{
-                      responsive:false
-                  }}
-                >
-                </Pie>              
-            </div>
-        )
-    }
-}
-
-export default FacebookPost
-*/

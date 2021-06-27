@@ -1,19 +1,21 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { Doughnut, Pie } from 'react-chartjs-2'
 
 export default function InstagramPost() {
-    const [likes, setLikes] = useState(17)
-    const [views, setViews] = useState(40)
-    const [reach, setReach] = useState(30)
-    const [comments, setComment] = useState(13)
+    const [likes, setLikes] = useState("")
+    const [views, setViews] = useState("")
+    const [reach, setReach] = useState("")
+    const [comments, setComment] = useState("")
+    const [genderData, setGenderData] = useState("")
+    const [ageData, setAgeData] = useState("")
 
-    const genderData = {
+    const genderChart = {
         labels: ["Male", "Female"],
         datasets: [
           {
             label: "Gender",
-            data: [60, 40],
+            data: genderData,
             backgroundColor: [
                 "rgb(54, 162, 235)",
                 "rgb(255, 99, 132)"
@@ -23,12 +25,12 @@ export default function InstagramPost() {
         hoverOffset: 4
     };
 
-    const ageData = {
+    const ageChart = {
         labels: ["1-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80"],
         datasets: [
           {
             label: "Age",
-            data: [1, 3, 5, 6, 11, 12, 15, 10],
+            data: ageData,
             backgroundColor: [
                 "#fc4444",
                 "#fc6404",
@@ -48,6 +50,15 @@ export default function InstagramPost() {
         responsive: true,
         maintainAspectRatio: false
     }
+
+    useEffect(() => {
+        setLikes(17)
+        setViews(40)
+        setReach(30)
+        setComment(13)
+        setGenderData([25, 15])
+        setAgeData([1, 3, 5, 6, 11, 12, 15, 10])
+    }, [])
 
     return (
         <div>
@@ -71,13 +82,13 @@ export default function InstagramPost() {
                 <ListGroup.Item>
                     <div style={{color: "#898989"}}>Gender</div>
                     <div className="mt-2" style={{height: "350px"}}>
-                        <Pie data={genderData} options={graphOptions} />
+                        <Pie data={genderChart} options={graphOptions} />
                     </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
                     <div style={{color: "#898989"}}>Age</div>
                     <div className="mt-2" style={{height: "350px"}}>
-                        <Doughnut data={ageData} options={graphOptions} />
+                        <Doughnut data={ageChart} options={graphOptions} />
                     </div>
                 </ListGroup.Item>
             </ListGroup>

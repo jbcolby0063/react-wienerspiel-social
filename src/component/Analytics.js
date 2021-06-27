@@ -16,6 +16,15 @@ import TotalViews from './TotalViews'
 import FacebookOverall from './FacebookOverall'
 import InstagramOverall from './InstagramOverall'
 
+// Border Red: #BB0101
+// Background Red: rgba(187, 1, 1, 0.3)
+
+// Facebook Blue - #4267B2
+// Instagram Pink - #E1306C
+// Instagram Purple - rgba(138, 58, 185, 0.8)
+// Twitter Blue - #1DA1F2
+
+
 export default function Analytics() {
     const { currentUser, sidebarVisible, postDetailData, setPostDetailData } = useAuth() // access directly to the values from the AuthContext.Provider 
     const [dataList, setDataList] = useState()
@@ -41,10 +50,8 @@ export default function Analytics() {
         })
     }, [])
 
-
     return (
     <>
-    
     <div>
         {modalShow && <PostDetail data={postDetailData} show={modalShow} onHide={() => setModalShow(false)} />}
         <div className="d-flex flex-column" style={{height: "100vh"}}>
@@ -76,9 +83,10 @@ export default function Analytics() {
                             <Card className="shadow mt-3" style={{width: "385px", height: "450px"}}>
                                 <Card.Body>
                                     <Card.Title><InstaLogo style={{width: "25px", height: "25px", marginTop:"5px", marginRight: "9px", float: "left", fill: "#BB0101"}} /><h3 style={{color: "#BB0101"}}>Instagram</h3></Card.Title>
-                                    <Card.Text>
+                                    <Card.Subtitle className="mb-2" style={{color:"#878787"}}>Overall Analytics</Card.Subtitle>
+                                    <Card.Title>
                                         <InstagramOverall />
-                                    </Card.Text>
+                                    </Card.Title>
                                 </Card.Body>
                             </Card>
                         </div>
