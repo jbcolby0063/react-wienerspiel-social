@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true)
     const [sidebarVisible, setSidebarVisible] = useState(true)
     const [currentScreen, setCurrentScreen] = useState(window.innerWidth)
-    const [postDetailVisible, setPostDetailVisible] = useState(false)
+    const [postDetailData, setPostDetailData] = useState(false)
 
     function showSidebar() {
         return setSidebarVisible(!sidebarVisible)
@@ -67,8 +67,8 @@ export function AuthProvider({ children }) {
         setSidebarVisible,
         currentScreen,
         setCurrentScreen,
-        postDetailVisible,
-        setPostDetailVisible
+        postDetailData,
+        setPostDetailData
     }
     return (
         <AuthContext.Provider value={value}>

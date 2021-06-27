@@ -16,7 +16,7 @@
     background-color: #E5E5E5 !important;
 }
 
-#analyticsBg {
+#postDetailBg {
     filter: blur(10px);
     -webkit-filter: blur(10px);
     pointer-events: none;
@@ -25,6 +25,10 @@
 button:hover > .closeButton {
     background-color: #E9E8E8;
     cursor: pointer;
+}
+
+.postDetailImage {
+    border: none !important; 
 }
 
 .menu {

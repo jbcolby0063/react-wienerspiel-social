@@ -34,12 +34,12 @@ export default function InstagramOverall() {
                 <pre className="mt-2" >
                     <div className="mr-3" style={{color:"#878787", width: "90px", float: "left", position: "relative", bottom: "2px"}}>hello worl</div>
                     <div style={{float: "left", color:"#878787", position: "relative", bottom: "2px", width: "30px", textAlign: "right", marginRight: "3px"}}>150</div>
-                    <div style={{width: "200px", float: "left"}}><ProgressBar now={70}  /></div>
+                    <div style={{width: "200px", float: "left"}}><ProgressBar now={150/150*100}  /></div>
                 </pre>
                 <pre className="mt-2" >
                     <div className="mr-3" style={{color:"#878787", width: "90px", float: "left", position: "relative", bottom: "2px"}}>third</div>
                     <div style={{float: "left", color:"#878787", position: "relative", bottom: "2px", width: "30px", textAlign: "right", marginRight: "3px"}}>40</div>
-                    <div style={{width: "200px", float: "left"}}><ProgressBar now={30}  /></div>
+                    <div style={{width: "200px", float: "left"}}><ProgressBar now={40/150*100}  /></div>
                 </pre>
             </div>
         </div>
