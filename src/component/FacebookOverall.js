@@ -14,8 +14,8 @@ export default function FacebookOverall() {
             label: "Gender",
             data: genderData,
             backgroundColor: [
-                "#4267B2",
-                "#F3B8C0"
+                "rgba(66, 103, 178, 0.3)",
+                "rgba(66, 103, 178, 1)"
             ]
           }
         ],
@@ -54,13 +54,13 @@ export default function FacebookOverall() {
                     <h4 className="mt-2" style={{color: "#4267B2"}}>{engagemnet}</h4>
                 </ListGroup.Item>
                 <ListGroup.Item style={{paddingLeft: "0px"}}>
-                    <div style={{color: "#898989"}}>Views by Gender</div>
+                    <div style={{color: "#898989"}}>Gender</div>
                     <div className="mt-2" style={{height: "200px"}}>
                         <Pie data={genderChart} options={graphOptions} />
                     </div>
                 </ListGroup.Item>
                 <ListGroup.Item style={{paddingLeft: "0px"}}>
-                    <div style={{color: "#898989"}}>Views by Age</div>
+                    <div style={{color: "#898989"}}>Age</div>
                     <div className="mt-2" style={{height: "200px"}}>
                         <Bar data={ageChart} options={graphOptions} />
                     </div>
