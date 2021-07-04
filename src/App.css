@@ -50,6 +50,18 @@ button:hover > .closeButton {
 
 }
 
+.addPhotoButton:hover {
+    background-color: #BB0101;
+}
+
+.addPhotoButton:hover > .addPhotoLogo {
+    fill: white !important;
+}
+
+.addPhotoButton:hover > .addPhotoText {
+    color: white !important;
+}
+
 @media only screen and (max-width: 1300px){
     .menu {
         width: 350px;

@@ -14,7 +14,7 @@ export default function PostList({data}) {
         
             <pre style={{color:"#878787", margin: "0"}}>
                 <div style={{float: "left"}}>{dataL}</div>
-                <div style={{float: "left", width: "150px", marginBottom: "5px"}}>
+                <div style={{float: "left", width: "130px", marginBottom: "5px"}}>
                     {socialL.includes("facebookCheck") && <FacebookLogo style={{width: "23px", height: "23px", marginRight: "10px", float: "left", position: "relative", bottom: "2px"}} />}
                     {socialL.includes("instagramCheck") && <InstaLogo style={{width: "20px", height: "20px", marginRight: "10px", float: "left"}} />}
                     {socialL.includes("twitterCheck") && <TwitterLogo style={{width: "20px", height: "20px", marginRight: "10px", float: "left"}} />}

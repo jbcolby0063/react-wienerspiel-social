@@ -29,7 +29,7 @@ export default function Analytics() {
     const { currentUser, sidebarVisible, postDetailData, setPostDetailData } = useAuth() // access directly to the values from the AuthContext.Provider 
     const [dataList, setDataList] = useState()
     const [modalShow, setModalShow] = useState(false)
-    let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(17) + "VIEWERS"
+    let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(15) + "VIEWERS"
 
     function postDetailVisible(data) {
         setPostDetailData(data)

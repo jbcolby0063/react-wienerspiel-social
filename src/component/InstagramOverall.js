@@ -83,7 +83,7 @@ export default function InstagramOverall() {
                     <div style={{height: "200px"}}>
                         <Bar className="mt-2" data={reachChart} options={graphOptions} />
                     </div>
-                    <div className="mt-2 mb-2" style={{textAlign: "center", color: "rgba(138, 58, 185, 0.8)"}}>{percentageCompare < 0 ? "" : "+"} {percentageCompare}% vs last week</div>
+                    <div className="mt-2 mb-2" style={{textAlign: "center", color: "rgba(138, 58, 185, 0.8)"}}>{percentageCompare < 0 ? "" : "+"}{percentageCompare}% vs last week</div>
                 </ListGroup.Item>
                 <ListGroup.Item style={{paddingLeft: "0px"}}>
                     <div style={{color: "#898989"}}>Followers Count</div>

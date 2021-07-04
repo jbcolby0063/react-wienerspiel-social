@@ -73,13 +73,14 @@ export const uploadImageButton = {
 
 export const imageCloseButton = {
     position: "absolute", 
-    top: "3%", 
-    right: "3%", 
+    top: "10px", 
+    right: "7px", 
     height: "35px", 
     weight: "35px", 
     borderRadius: "50%", 
     border: "none", 
-    backgroundColor: "#F8F8F8"
+    backgroundColor: "#F8F8F8",
+    zIndex: "2"
 }
 
 export const postCloseButton = {

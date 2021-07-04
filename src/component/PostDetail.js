@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Alert, Tab, Tabs, Spinner, Modal, Button } from 'react-bootstrap'
+import { Card, Alert, Tab, Tabs, Spinner, Modal, Button, Carousel } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import { db, storage } from '../firebase'
 import "../App.css"
@@ -11,15 +11,18 @@ import {ReactComponent as DeleteLogo} from '../deleteLogo.svg'
 
 
 export default function PostDetail({data, show, onHide}) {
+    const idL = data.id
     const titleL = data.title
     const textL = data.text
     const timeL = data.time
+    const uploadTimeIDL = data.uploadTimeID
+    const fileTypeL = data.fileType
     const viewerL = data.viewers
     const socialL = data.socialMedia
-    const imageName = data.imageName
-    const [imageL, setImageL] = useState("")
-    const [imageError, setImageError] = useState(false)
-    const [imageLoading, setImageLoading] = useState(false)
+    const fileNameL = data.fileName
+    const [fileL, setFileL] = useState([])
+    const [fileError, setFileError] = useState(false)
+    const [fileLoading, setFileLoading] = useState(true)
     const [deleteShow, setDeleteShow] = useState(false)
     const [deleteError, setDeleteError] = useState(false)
     const { setPostDetailVisible, currentUser } = useAuth()
@@ -29,10 +32,16 @@ export default function PostDetail({data, show, onHide}) {
 
     async function deletePost() { // delete post data from firebase
         const userID = currentUser.email.split("@")[0]
-        const postRef = db.ref("users/" + userID).child(data.id)
+        const dbRef = db.ref("users/" + userID).child(data.id)
+        const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL)
         try {
             setDeleteError(false)
-            await postRef.remove()
+            await dbRef.remove()
+            await storageRef.listAll().then(function(res){
+                res.items.forEach(function(itemRef){
+                    itemRef.delete()
+                })
+            })
         } catch(err) {
             setDeleteError(err)
         } finally {
@@ -44,19 +53,24 @@ export default function PostDetail({data, show, onHide}) {
 
     async function getImage() { // firebase image retrieve 
         const userID = currentUser.email.split("@")[0]
+        const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL)
+        const imageURLList = []
         try {
-            await storage.ref("users/" + userID + "/" + imageName).getDownloadURL().then(function(url) {
-                setImageL(url)
-            })
+            for(const file of fileNameL) { // async getDownloadURL for each image
+                await storageRef.child(file).getDownloadURL().then(function(url) {
+                    imageURLList.push(url)
+                })
+            }
+            setFileL(imageURLList)
         } catch(err) {
-            setImageError(err)
+            setFileError(err)
         }
-        setImageLoading(false)
+        setFileLoading(false)
     }
 
     useEffect(() => {
-        setImageError(false)
-        setImageLoading(true)
+        setFileError(false)
+        setFileLoading(true)
         getImage()
     }, [])
 
@@ -86,8 +100,8 @@ export default function PostDetail({data, show, onHide}) {
                                         </div>
                                     </div>
                                 </Alert>}
-                            {imageError && <Alert variant="danger">{imageError}</Alert>}
-                            <Card.Body style={{paddingTop: "0px", paddingLeft: "10px", paddingBottom: "10px", paddingRight: "10px"}}>
+                            {fileError && <Alert variant="danger">{fileError}</Alert>}
+                            <Card.Body className="w-100" style={{paddingTop: "0px", paddingLeft: "10px", paddingBottom: "10px", paddingRight: "10px"}}>
                                 <Card.Title>
                                     <h3>{titleL}</h3>
                                 </Card.Title>
@@ -95,12 +109,25 @@ export default function PostDetail({data, show, onHide}) {
                                     <div style={{color: "#898989"}}>{timeL}</div>
                                 </Card.Subtitle>
                                 <div className="mt-3 mb-2">
-                                {imageLoading ? 
-                                    <div>
+                                {fileLoading && 
+                                    <div className="w-100 d-flex align-items-center justify-content-center">
                                         <Spinner animation="border" variant="danger" />
-                                    </div> : 
-                                    <Card.Img src={imageL} style={{width: "100%", height: "auto"}} />
-                                    }
+                                    </div>}
+                                {(!fileLoading && fileTypeL === "image" && fileL.length === 1) &&      
+                                    fileL.map((image) => <Card.Img src={image} style={{width: "100%", height: "auto"}} />)}
+                                {(!fileLoading && fileTypeL === "image" && fileL.length > 1) &&      
+                                    <Carousel>
+                                        {fileL.map((image) => 
+                                            <Carousel.Item>
+                                                <div className="w-100 overflow-hidden d-flex align-items-center justify-content-center" style={{height: "300px", backgroundColor: "lightgray", borderRadius: "5px", textAlign: "center"}}>
+                                                    <img src={image} style={{maxWidth: "100%", maxHeight: "100%", objectFit: "contain"}} />
+                                                </div>
+                                            </Carousel.Item>)}
+                                    </Carousel>}
+                                {(!fileLoading && fileTypeL === "video") &&
+                                    <video className="w-100" height="300px" controls style={{borderRadius: "5px"}}>
+                                        {fileL.map((video) => <source src={video} />)}
+                                    </video>}
                                 </div>
                                 <Card.Text>
                                     <div style={{color: "#898989"}}>{textL}</div>
