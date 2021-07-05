@@ -61,16 +61,14 @@ export default function PostPage() {
         }
     }
 
-    async function handleStorage() { // firebase image/video storage 
+    function handleStorage() { // firebase image/video storage 
         const userID = currentUser.email.split("@")[0]
         const uploadTimeID = titleRef.current.value + "_" + timeID
         const storageRef = storage.ref("users/" + userID + "/" + uploadTimeID)
-        for(const file of uploadFile) {
-            await storageRef.child(file.name).put(file)
-        }
+        return storageRef
     }
 
-    async function handleDB() { // firebase database
+    function handleDB() { // firebase database
         const userID = currentUser.email.split("@")[0]
         const postRef = db.ref("users/" + userID) // data store path
         const fileList = []
@@ -88,7 +86,7 @@ export default function PostPage() {
             socialMedia: socialList,
             viewers : 0
         }
-        await postRef.push(postData) // push the data to userID folder in firebase realtime database 
+        return postRef.push(postData) // push the data to userID folder in firebase realtime database 
     }
 
     function checkBeforeSubmit() {
@@ -106,18 +104,19 @@ export default function PostPage() {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        setError(false)
-        setImageError(false)
-        setInstagramError(false)
-        setUploadLoading(true)
+        try{
+            setUploadLoading(true)
+            setError(false)
+            setImageError(false)
+            setInstagramError(false)
 
-        checkBeforeSubmit().then((msg) => {
-            handleStorage().then(() => {
-                handleDB().then(() => {
-                    history.push("/analytics")
-                })
-            })
-        }).catch((rej) => {
+            await checkBeforeSubmit()
+            for(const file of uploadFile) {
+                await handleStorage().child(file.name).put(file)
+            }
+            await handleDB()
+            history.push("/analytics")
+        } catch(rej) {
             if (rej === "imageError") {
                 setImageError("Upload Image/Video") 
             } else if (rej === "instagramError") {
@@ -125,10 +124,9 @@ export default function PostPage() {
             } else {
                 setError("Failed to Upload")
             }
-        }).finally(() => {
-            setUploadLoading(false)
-        })
-        
+        }
+
+        setUploadLoading(false)
     }
 
 
